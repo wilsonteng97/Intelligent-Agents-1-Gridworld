@@ -24,7 +24,7 @@ public class FileIO {
 
                     ActionUtilityPair[][] actionUtilityPair = iter.next();
                     sb.append(decimalFormat.format(
-                            actionUtilityPair[row][col].getUtility()), 0, 5);
+                            actionUtilityPair[row][col].getUtility()), 0, 7);
 
                     if(iter.hasNext()) {
                         sb.append(",");
