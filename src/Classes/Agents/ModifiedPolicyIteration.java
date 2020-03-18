@@ -38,7 +38,6 @@ public class ModifiedPolicyIteration implements  Agent {
         double currPolicyUtility = 0.0;
         do {
             this.no_of_iterations++;
-//            this.ListOfActionUtilityArrays.add(this.optimalPolicyActionUtilArr);
 
             // Policy Evaluation: Update Utilities
             this.optimalPolicyActionUtilArr = policyEvaluation(this.currActionUtilArr, this.grid, K, discount);
@@ -56,8 +55,6 @@ public class ModifiedPolicyIteration implements  Agent {
                     currPolicyUtility = getTransitionStateActionPairUtil(this.optimalPolicyActionUtilArr, policyAction, row, col);
 
                     if (newMaxUtility > currPolicyUtility) {
-//                        System.out.print("LALA");
-//                        System.out.print("CHOSEN->" + chosenActionUtilityPair.getAction().toString() + "\n");
                         this.optimalPolicyActionUtilArr[row][col].setAction(chosenActionUtilityPair.getAction());
                         this.policyIsUnstable = true;
                     }
@@ -66,10 +63,8 @@ public class ModifiedPolicyIteration implements  Agent {
             this.currActionUtilArr = replicateUtilArray(this.optimalPolicyActionUtilArr);
             this.ListOfActionUtilityArrays.add(this.currActionUtilArr);
 
-//            System.out.print(no_of_iterations + "LALAiterations\n");
-            if (this.no_of_iterations%100==0) {break;}
+//            if (this.no_of_iterations%100==0) {break;}
         } while (this.policyIsUnstable);
-//        this.ListOfActionUtilityArrays.add(this.optimalPolicyActionUtilArr);
     }
 
     public List<ActionUtilityPair[][]> getResults() {
@@ -149,18 +144,8 @@ public class ModifiedPolicyIteration implements  Agent {
         double actionUtility = 0.000;
 
         double intentUtility = getUtilOfStateActionPair(actionUtilArr, action, row, col);
-//        System.out.print("OK1");
         double stationaryUtility = getUtilOfStateActionPair(actionUtilArr, null, row, col);
-//        System.out.print("OK2");
-//        if (actionUtilArr != null) {
-//            System.out.print("NULL");
-//        }
-//        displayActionPolicy(actionUtilArr);
-//        System.out.print(action.getClockwiseAction().toString());
-//        System.out.print(row);
-//        System.out.print(col);
         double clockwiseUtility = getUtilOfStateActionPair(actionUtilArr, action.getClockwiseAction(), row, col);
-//        System.out.print("OK3");
         double antiClockwiseUtility = getUtilOfStateActionPair(actionUtilArr, action.getAntiClockwiseAction(), row, col);
         double oppositeUtility = getUtilOfStateActionPair(actionUtilArr, action.getOppositeAction(), row, col);
 
@@ -175,21 +160,17 @@ public class ModifiedPolicyIteration implements  Agent {
     private double getUtilOfStateActionPair(ActionUtilityPair[][] currActionUtilArr, Action action, int row, int col) {
         int newY = row;
         int newX = col;
-//        System.out.print("troll0");
 
         if (action != null) {
             newY = row + action.getActionY();
             newX = col + action.getActionX();
         }
-//        System.out.print("troll1");
+
         if (newY >= 0 && newX >= 0 && newY < this.rows && newX < this.cols &&
                 this.grid[newY][newX].isVisitable()) {
-//            System.out.print("troll2");
-//            System.out.print("\n" + currActionUtilArr[newY][newX].getUtility());
             return currActionUtilArr[newY][newX].getUtility();
         }
-//        System.out.print("\nhitWall");
-//        System.out.print(currActionUtilArr[row][col].getUtility());
+
         return currActionUtilArr[row][col].getUtility();
     }
 
@@ -202,7 +183,6 @@ public class ModifiedPolicyIteration implements  Agent {
                 );
 
         ActionUtilityPair chosenActionUtilityPair = Collections.max(listOfActionUtilityPair);
-//        System.out.print(chosenActionUtilityPair.getAction().toString());
         return chosenActionUtilityPair;
     }
 }

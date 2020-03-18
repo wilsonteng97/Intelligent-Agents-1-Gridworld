@@ -41,7 +41,6 @@ public class ValueIteration implements Agent {
         newActionUtilArr = this.generateInitialPolicy();
 //        this.ListOfActionUtilityArrays.add(newActionUtilArr);
 
-//        double maxChangeInUtility = Double.MAX_VALUE;
         double maxChangeInUtility = 0;
         this.convergenceCriteria = this.maximum_error_allowed * ((1-this.discount) / this.discount);
 
@@ -57,7 +56,6 @@ public class ValueIteration implements Agent {
 
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
-//                    System.out.println("row: " + row + " col: " + col);
                     // Check if GridState is Wall
                     if (!grid[row][col].isVisitable()) {
                         continue;
@@ -70,22 +68,13 @@ public class ValueIteration implements Agent {
 
                     chosenActionUtilityPair.setUtility(newUtility);
                     this.newActionUtilArr[row][col] = chosenActionUtilityPair;
-//                    maxChangeInUtility = Math.max(Math.abs(newUtility - currUtility), maxChangeInUtility);
-//                    displayUtilities(this.grid, newActionUtilArr);
+
                     if (Math.abs(newUtility - currUtility) > maxChangeInUtility) {
                         maxChangeInUtility = Math.abs(newUtility - currUtility);
                     }
                 }
             }
-//            displayUtilitiesGrid(newActionUtilArr);
-//            System.out.println(maxChangeInUtility);
-//            System.out.println(maxChangeInUtility < convergenceCriteria);
-            if (this.no_of_iterations%1 == 0) {
-//                System.out.print(this.no_of_iterations);
-//                System.out.println(maxChangeInUtility);
-                if (this.no_of_iterations%1000 == 0) break;
-            }
-//            displayUtilities(this.grid, newActionUtilArr);
+//            if (this.no_of_iterations%1000 == 0) break;
         } while (maxChangeInUtility >= this.convergenceCriteria);
         this.ListOfActionUtilityArrays.add(newActionUtilArr);
     }
@@ -135,7 +124,6 @@ public class ValueIteration implements Agent {
                 );
 
         ActionUtilityPair chosenActionUtilityPair = Collections.max(listOfActionUtilityPair);
-//        System.out.print(chosenActionUtilityPair.getAction().toString());
         return chosenActionUtilityPair;
     }
 
