@@ -49,7 +49,7 @@ public class Main {
         final ActionUtilityPair[][] optimalPolicy_VI = valueIteration.getOptimalPolicy();
 
         displayActionPolicy(optimalPolicy_VI);
-//        displayUtilities(matrix, optimalPolicy_VI);
+        displayUtilities(matrix, optimalPolicy_VI);
         displayUtilitiesGrid(optimalPolicy_VI);
         print("Number of iterations: " + valueIteration.getNoOfIterations());
         print("Convergence Criteria: " + valueIteration.getConvergenceCriteria());
