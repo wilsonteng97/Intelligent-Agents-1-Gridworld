@@ -2,14 +2,12 @@ package Util.AgentHelperMethods;
 
 import Classes.ActionUtilityPair;
 import Classes.States.GridState;
-import Util.ApplicationInput;
 
 import java.text.DecimalFormat;
 
-import static Util.CommonUsedMethods.getSectionHeader;
-import static Util.CommonUsedMethods.printSectionHeader;
+import static Util.CommonUsedMethods.*;
 
-public class ValueIterationHelper {
+public class DisplayHelper {
 
     public static void displayActionPolicy(final ActionUtilityPair[][] actionUtilityPair) {
 
@@ -21,7 +19,10 @@ public class ValueIterationHelper {
         for (int row = 0; row < rows; row++) {
             if (row==0) {
                 for (int r = 0; r < rows + 1; r++) {
-                    str.append(r);
+                    if (r-1 < 0) {
+                        str.append("     "); continue;
+                    }
+                    str.append(r-1);
                     str.append("    ");
                 }
                 str.append("\n");
@@ -30,7 +31,7 @@ public class ValueIterationHelper {
             str.append("\n");
             for (int col = 0; col < cols; col++) {
                 if (col==0) {
-                    str.append(row+1);
+                    str.append(row);
                     str.append("  ");
                 }
                 str.append("| " + actionUtilityPair[row][col].toString() + " ");
@@ -49,13 +50,14 @@ public class ValueIterationHelper {
         int rows = actionUtilityPair.length;
         int cols = actionUtilityPair[0].length;
 
-        printSectionHeader("Utilities", true);
+        printSectionHeader("Reference utilities of states", true);
+        printDetails("Coordinates are in (col,row) format. Top-left corner is (0,0) <");
         for (int col = 0; col < cols; col++) {
             for (int row = 0; row < rows; row++) {
 
-                if (grid[col][row].isVisitable()) {
+                if (grid[row][col].isVisitable()) {
                     System.out.printf("(%1d,%1d) : %-2.6f%n", col, row,
-                            actionUtilityPair[col][row].getUtility());
+                            actionUtilityPair[row][col].getUtility());
                 }
             }
         }
@@ -75,7 +77,10 @@ public class ValueIterationHelper {
         for (int row = 0; row < rows; row++) {
             if (row == 0) {
                 for (int r = 0; r < rows + 1; r++) {
-                    str.append(r);
+                    if (r-1 < 0) {
+                        str.append("        "); continue;
+                    }
+                    str.append(r-1);
                     str.append("          ");
                 }
                 str.append("\n");
@@ -84,7 +89,7 @@ public class ValueIterationHelper {
             str.append("\n");
             for (int col = 0; col < cols; col++) {
                 if (col == 0) {
-                    str.append(row + 1);
+                    str.append(row);
                     str.append("  ");
                 }
                 util = actionUtilityPair[row][col].getUtility();

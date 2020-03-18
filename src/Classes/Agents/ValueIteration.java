@@ -1,6 +1,5 @@
 package Classes.Agents;
 
-
 import Classes.Action;
 import Classes.ActionUtilityPair;
 import Classes.GridWorld;
@@ -9,7 +8,7 @@ import Util.ApplicationInput;
 
 import java.util.*;
 
-public class ValueIteration {
+public class ValueIteration implements Agent {
 
     private double maximum_error_allowed = 0.0;
     private double discount = 0.0;
@@ -47,7 +46,6 @@ public class ValueIteration {
         this.convergenceCriteria = this.maximum_error_allowed * ((1-this.discount) / this.discount);
 
         this.no_of_iterations = 0;
-
 
         double newUtility = 0.0;
         double currUtility = 0.0;
@@ -127,6 +125,7 @@ public class ValueIteration {
         }
         return actionUtilArr;
     }
+
     private ActionUtilityPair getChosenActionUtilityPair(int row, int col) {
         List<ActionUtilityPair> listOfActionUtilityPair = new ArrayList<>();
         EnumSet.allOf(Action.class).

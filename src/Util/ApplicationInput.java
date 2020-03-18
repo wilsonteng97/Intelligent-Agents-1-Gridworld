@@ -61,5 +61,5 @@ public class ApplicationInput {
 
     // Constant k (i.e. number of times simplified Bellman update is executed
     // to produce the next utility estimate)
-    public static final int K = 10;
+    public static final int K = 15;
 }

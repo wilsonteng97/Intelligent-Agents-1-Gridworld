@@ -23,6 +23,9 @@ public class ActionUtilityPair implements Comparable<ActionUtilityPair> {
     }
 
     public void setAction(Action action) {
+        if (action==null) {
+            System.out.print("ACTION NULL");
+        }
         this.action = action;
     }
 

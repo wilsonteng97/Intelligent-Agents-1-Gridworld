@@ -97,7 +97,10 @@ public class GridWorld {
             for (int row = 0; row < getRows(); row++) {
                 if (row==0) {
                     for (int r = 0; r < getRows() + 1; r++) {
-                        str.append(r);
+                        if (r-1 < 0) {
+                            str.append("     "); continue;
+                        }
+                        str.append(r-1);
                         str.append("    ");
                     }
                     str.append("\n");
@@ -106,7 +109,7 @@ public class GridWorld {
                 str.append("\n");
                 for (int col = 0; col < getCols(); col++) {
                     if (col==0) {
-                        str.append(row+1);
+                        str.append(row);
                         str.append("  ");
                     }
                     str.append(matrix[row][col].toString(true));

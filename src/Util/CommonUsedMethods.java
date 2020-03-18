@@ -1,5 +1,7 @@
 package Util;
 
+import Classes.ActionUtilityPair;
+
 import java.util.Random;
 
 public class CommonUsedMethods {
@@ -53,5 +55,26 @@ public class CommonUsedMethods {
     public static void printDetails(String msg) {
         msg = getDetails(msg);
         System.out.print(msg);
+    }
+
+    public static boolean checkSamePolicy(ActionUtilityPair[][] checkActionUtilityPairArray, ActionUtilityPair[][] ...otherActionUtilityPairArrays) {
+        int rows = checkActionUtilityPairArray.length;
+        int cols = checkActionUtilityPairArray[0].length;
+
+        for (ActionUtilityPair[][] AUParray : otherActionUtilityPairArrays) {
+            for (int row=0; row<rows; row++) {
+                for (int col=0; col<cols; col++) {
+                    if (AUParray[row][col].getAction() != checkActionUtilityPairArray[row][col].getAction()) {
+                        StringBuilder str = new StringBuilder();
+                        str.append("First observed difference @(" + col + "," + row + ")");
+                        printHeader("Policies obtained are different.",  false);
+                        printDetails(str.toString());
+                        return false;
+                    }
+                }
+            }
+        }
+        printHeader("Policies obtained are the same.", false);
+        return true;
     }
 }
