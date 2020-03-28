@@ -27,14 +27,14 @@ public class GridWorld {
     }
 
     private void buildGrid(int rows, int cols, int scale) {
-        matrix = new GridState[rows][cols];
+        matrix = new GridState[rows*scale][cols*scale];
         for (int row=0; row<getRows(); row++) {
             for (int col=0; col<getCols(); col++) {
                 matrix[row][col] = new EmptyState(row, col);
             }
         }
 
-        // Start Tile Initialisation
+        // Start Tile Initialisation -> Inconsequential Value/Policy Iteration
         String[] startTileCoord = ApplicationInput.START_TILE.split(ApplicationInput.COL_ROW_DELIM);
         int startTileRow = Integer.parseInt(startTileCoord[0]);
         int startTileCol = Integer.parseInt(startTileCoord[1]);
@@ -44,6 +44,9 @@ public class GridWorld {
         }
         matrix[startTileRow][startTileCol] = new StartState(startTileRow, startTileCol);
 
+        int r;
+        int c;
+
         // Reward Tile Initialisation
         String[] rewardTileLs = ApplicationInput.REWARD_TILES.split(ApplicationInput.GRID_DELIM);
         for (String rewardTile : rewardTileLs) {
@@ -51,7 +54,14 @@ public class GridWorld {
             String[] gridCoord = rewardTile.split(ApplicationInput.COL_ROW_DELIM);
             int rewardTileRow = Integer.parseInt(gridCoord[0]);
             int rewardTileCol = Integer.parseInt(gridCoord[1]);
-            matrix[rewardTileRow][rewardTileCol] = new RewardState(rewardTileRow, rewardTileCol);
+            if (scale==1) matrix[rewardTileRow][rewardTileCol] = new RewardState(rewardTileRow, rewardTileCol);
+            else {
+                for (r=rewardTileRow*scale; r<scale*(rewardTileRow+1); r++) {
+                    for (c=rewardTileCol*scale; c<scale*(rewardTileCol+1); c++) {
+                        matrix[r][c] = new RewardState(r, c);
+                    }
+                }
+            }
         }
         // Penalty Tile Initialisation
         String[] penaltyTileLs = ApplicationInput.PENALTY_TILES.split(ApplicationInput.GRID_DELIM);
@@ -60,7 +70,14 @@ public class GridWorld {
             String[] gridCoord = penaltyTile.split(ApplicationInput.COL_ROW_DELIM);
             int penaltyTileRow = Integer.parseInt(gridCoord[0]);
             int penaltyTileCol = Integer.parseInt(gridCoord[1]);
-            matrix[penaltyTileRow][penaltyTileCol] = new PenaltyState(penaltyTileRow, penaltyTileCol);
+            if (scale==1) matrix[penaltyTileRow][penaltyTileCol] = new PenaltyState(penaltyTileRow, penaltyTileCol);
+            else {
+                for (r=penaltyTileRow*scale; r<scale*(penaltyTileRow+1); r++) {
+                    for (c=penaltyTileCol*scale; c<scale*(penaltyTileCol+1); c++) {
+                        matrix[r][c] = new PenaltyState(r, c);
+                    }
+                }
+            }
         }
         // Wall Tile Initialisation
         String[] wallTileLs = ApplicationInput.WALLS_TILES.split(ApplicationInput.GRID_DELIM);
@@ -69,7 +86,14 @@ public class GridWorld {
             String[] gridCoord = wallTile.split(ApplicationInput.COL_ROW_DELIM);
             int wallTileRow = Integer.parseInt(gridCoord[0]);
             int wallTileCol = Integer.parseInt(gridCoord[1]);
-            matrix[wallTileRow][wallTileCol] = new WallState(wallTileRow, wallTileCol);
+            if (scale==1) matrix[wallTileRow][wallTileCol] = new WallState(wallTileRow, wallTileCol);
+            else {
+                for (r=wallTileRow*scale; r<scale*(wallTileRow+1); r++) {
+                    for (c=wallTileCol*scale; c<scale*(wallTileCol+1); c++) {
+                        matrix[r][c] = new WallState(r, c);
+                    }
+                }
+            }
         }
     }
 
