@@ -60,21 +60,27 @@ public class CommonUsedMethods {
     public static boolean checkSamePolicy(ActionUtilityPair[][] checkActionUtilityPairArray, ActionUtilityPair[][] ...otherActionUtilityPairArrays) {
         int rows = checkActionUtilityPairArray.length;
         int cols = checkActionUtilityPairArray[0].length;
+        boolean result = true;
+        int no_of_differences = 0;
 
         for (ActionUtilityPair[][] AUParray : otherActionUtilityPairArrays) {
             for (int row=0; row<rows; row++) {
                 for (int col=0; col<cols; col++) {
                     if (AUParray[row][col].getAction() != checkActionUtilityPairArray[row][col].getAction()) {
                         StringBuilder str = new StringBuilder();
-                        str.append("First observed difference @(" + col + "," + row + ")");
-                        printHeader("Policies obtained are different.",  false);
+                        str.append("Observed difference @(" + col + "," + row + ")");
+                        if (result==true) printHeader("Policies obtained are different.",  false);
                         printDetails(str.toString());
-                        return false;
+                        no_of_differences++;
+                        result = false;
                     }
                 }
             }
         }
-        printHeader("Policies obtained are the same.", false);
-        return true;
+        if (no_of_differences>0) {
+            printDetails("[TOTAL NUMBER OF DIFFERENCES] = " + no_of_differences);
+        }
+        if (result==true) printHeader("Policies obtained are the same.", false);
+        return result;
     }
 }
