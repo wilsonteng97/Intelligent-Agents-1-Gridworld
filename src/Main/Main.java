@@ -29,7 +29,7 @@ public class Main {
 
         int rows = ApplicationInput.NUM_ROWS;
         int cols = ApplicationInput.NUM_COLS;
-        GridWorld gridWorld = new GridWorld(rows, cols);
+        GridWorld gridWorld = new GridWorld(rows, cols, 1);
         GridState[][] matrix = gridWorld.getGrid();
 
         gridWorld.displayGridWorld();

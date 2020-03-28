@@ -18,16 +18,16 @@ public class GridWorld {
     protected int noOfRewards = 6;
     protected int noOfPenalties = 5;
 
-    public GridWorld(int rows, int cols) {
-        matrix = new GridState[rows][cols];
-        buildGrid();
+    public GridWorld(int rows, int cols, int scale) {
+        buildGrid(rows, cols, scale);
     }
 
     public GridState[][] getGrid() {
         return this.matrix;
     }
 
-    private void buildGrid() {
+    private void buildGrid(int rows, int cols, int scale) {
+        matrix = new GridState[rows][cols];
         for (int row=0; row<getRows(); row++) {
             for (int col=0; col<getCols(); col++) {
                 matrix[row][col] = new EmptyState(row, col);
