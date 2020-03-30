@@ -78,7 +78,7 @@ public class CommonUsedMethods {
             }
         }
         if (no_of_differences>0) {
-            printDetails("[TOTAL NUMBER OF DIFFERENCES] = " + no_of_differences);
+                printDetails("[TOTAL NUMBER OF DIFFERENCES] = " + no_of_differences);
         }
         if (result==true) printHeader("Policies obtained are the same.", false);
         return result;

@@ -10,14 +10,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class FileIO {
-    public static void writeToFile(List<ActionUtilityPair[][]> ListOfActionUtilityArrays, String directory, String fileName) {
+    public static void writeToFile(List<ActionUtilityPair[][]> ListOfActionUtilityArrays, int scale, String directory, String fileName) {
 
         StringBuilder sb = new StringBuilder();
         String pattern = "00.0000";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
 
-        for (int col = 0; col < ApplicationInput.NUM_COLS; col++) {
-            for (int row = 0; row < ApplicationInput.NUM_ROWS; row++) {
+        for (int col = 0; col < ApplicationInput.NUM_COLS*scale; col++) {
+            for (int row = 0; row < ApplicationInput.NUM_ROWS*scale; row++) {
 
                 Iterator<ActionUtilityPair[][]> iter = ListOfActionUtilityArrays.iterator();
                 while(iter.hasNext()) {

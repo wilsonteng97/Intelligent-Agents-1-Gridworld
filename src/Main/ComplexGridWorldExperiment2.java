@@ -17,6 +17,8 @@ import static Util.CommonUsedMethods.*;
 import static Util.CommonUsedMethods.checkSamePolicy;
 
 public class ComplexGridWorldExperiment2 {
+    public static final int SCALE = 3;
+
     public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException {
         System.setProperty("file.encoding","UTF-8");
         Field charset = Charset.class.getDeclaredField("defaultCharset");
@@ -25,8 +27,9 @@ public class ComplexGridWorldExperiment2 {
 
         int rows = ApplicationInput.NUM_ROWS;
         int cols = ApplicationInput.NUM_COLS;
-        GridWorld gridWorld = new GridWorld(rows, cols, 2);
+        GridWorld gridWorld = new GridWorld(rows, cols, SCALE);
         GridState[][] matrix = gridWorld.getGrid();
+
 
         gridWorld.displayGridWorld();
 
@@ -51,7 +54,7 @@ public class ComplexGridWorldExperiment2 {
         print("Convergence Criteria: " + valueIteration.getConvergenceCriteria());
 
         // Output to csv file to plot utility estimates as a function of iteration
-        FileIO.writeToFile(valueIteration.getResults(), "results/", "experiment2_value_iteration_utility_history");
+        FileIO.writeToFile(valueIteration.getResults(), SCALE,"results/", "experiment2_value_iteration_utility_history");
 
         // Policy Iteration
         printHeader("[2] Policy Iteration", false);
@@ -72,7 +75,7 @@ public class ComplexGridWorldExperiment2 {
         print("Number of iterations: " + mPolicyIteration.getNoOfIterations());
 
         // Output to csv file to plot utility estimates as a function of iteration
-        FileIO.writeToFile(mPolicyIteration.getResults(), "results/", "experiment2_modified_policy_iteration_utility_history");
+        FileIO.writeToFile(mPolicyIteration.getResults(), SCALE, "results/", "experiment2_modified_policy_iteration_utility_history");
 
         // Check if policies obtained are the same
         checkSamePolicy(optimalPolicy_VI, optimalPolicy_MPI);

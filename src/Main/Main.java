@@ -15,6 +15,7 @@ import static Util.AgentHelperMethods.DisplayHelper.*;
 import static Util.CommonUsedMethods.*;
 
 public class Main {
+    private static final int SCALE = 1;
 
 //    public static void main(String[] args) {
 //	// write your code here
@@ -55,7 +56,7 @@ public class Main {
         print("Convergence Criteria: " + valueIteration.getConvergenceCriteria());
 
         // Output to csv file to plot utility estimates as a function of iteration
-        FileIO.writeToFile(valueIteration.getResults(), "results/", "original_value_iteration_utility_history");
+        FileIO.writeToFile(valueIteration.getResults(), SCALE,"results/", "original_value_iteration_utility_history");
 
         // Policy Iteration
         printHeader("[2] Policy Iteration", false);
@@ -76,7 +77,7 @@ public class Main {
         print("Number of iterations: " + mPolicyIteration.getNoOfIterations());
 
         // Output to csv file to plot utility estimates as a function of iteration
-        FileIO.writeToFile(mPolicyIteration.getResults(), "results/", "original_modified_policy_iteration_utility_history");
+        FileIO.writeToFile(mPolicyIteration.getResults(), SCALE, "results/", "original_modified_policy_iteration_utility_history");
 
         // Check if policies obtained are the same
         checkSamePolicy(optimalPolicy_VI, optimalPolicy_MPI);
